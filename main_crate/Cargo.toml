@@ -1,0 +1,18 @@
+[package]
+name = "main_crate"
+version = "0.1.0"
+edition = "2024"
+
+
+[dependencies]
+actix-web = { workspace = true, features = ["macros", "openssl"]}
+serde ={ workspace = true, features = ["derive"] }
+serde_json ={ workspace = true }
+types = { path = "../types" }
+openssl = "0.10.73"
+env_logger = "0.11.8"
+actix-cors = "0.7.1"
+chrono = { version = "0.4.41", features = ["serde"] }
+dotenvy = "0.15.7"
+uuid = { version = "1.17.0", features = ["serde", "v4"] }
+sqlx = { workspace = true}
