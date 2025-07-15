@@ -1,47 +1,41 @@
+use chrono::{TimeDelta, TimeZone, Utc};
+use serde::{Deserialize, Serialize};
 
-use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
 
 
-
+mod utils;
 pub mod schemas;
 pub mod models;
+pub mod app_state;
 
-#[derive(Debug)]
-pub enum AppStateErr{
-    FailedConnectionDB
-}
+
 
 
 pub const INTERNAT_ERR_MSG: &'static str = "Something went wrong: ";
+const EXPECTED_EXPIRATION: i64 = 24;
 
 
-#[derive(Debug)]
-pub struct AppState{
-    pub db: Pool<Postgres>
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Claim{
+    sub: String,
+    exp: usize
 }
 
-impl AppState {
 
-    async fn init_db_pool() -> Result<Pool<Postgres>, AppStateErr>{
-        let url = dotenvy::var("DATABASE_URL")
-            .map_err(|_| AppStateErr::FailedConnectionDB)?;
+impl Claim {
 
+    pub fn new(sub: String) -> Option<Self> {
 
-        let pool = PgPoolOptions::new()
-            .max_connections(10)
-            .connect(&url)
-            .await
-            .map_err(|_| AppStateErr::FailedConnectionDB)?;
+        let exp = Utc::now()
+            .checked_add_signed(TimeDelta::hours(EXPECTED_EXPIRATION))?
+            .timestamp() as usize;
 
-        Ok(pool)
+        Some(Claim { 
+            sub, 
+            exp 
+        })
     } 
 
-    pub async fn init() -> Result<Self, AppStateErr>{
-
-        let db_pool = Self::init_db_pool().await?;
-
-        Ok(Self { 
-            db:  db_pool
-        })
-    }
 }
+

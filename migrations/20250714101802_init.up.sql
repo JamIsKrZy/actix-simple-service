@@ -14,7 +14,7 @@ CREATE TABLE
         id UUID UNIQUE PRIMARY KEY DEFAULT uuid_generate_v4(),
         email VARCHAR(64) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
-        salt VARCHAR(64) NOT NULL,
+        salt VARCHAR(128) NOT NULL,
         username VARCHAR(16) UNIQUE NOT NULL,
         first_name VARCHAR(32) NOT NULL,
         last_name VARCHAR(32) NOT NULL,
@@ -22,4 +22,5 @@ CREATE TABLE
         phone_no VARCHAR(20) NOT NULL,
         role user_role NOT NULL DEFAULT 'regular'
     );
+
 

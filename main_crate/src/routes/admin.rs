@@ -3,8 +3,9 @@
 
 use actix_web::{get, web, HttpResponse, Responder};
 use serde_json::json;
+use types::app_state::AppState;
 use types::schemas::query::{ListAmount};
-use types::{AppState, INTERNAT_ERR_MSG};
+use types::{INTERNAT_ERR_MSG};
 use types::models::user::{User, UserRole};
 
 pub fn scope(cfg: &mut web::ServiceConfig){

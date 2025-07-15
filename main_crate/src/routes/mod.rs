@@ -1,9 +1,20 @@
 use actix_web::{web, HttpResponse, Responder};
-use serde_json::json;
+use serde_json::{json, Value};
+use types::INTERNAT_ERR_MSG;
 
 mod auth;
 mod home;
 mod admin;
+
+
+fn internal_err_json<T: AsRef<str>>(err_msg: T) -> Value{
+    let msg = err_msg.as_ref();
+
+    json!({
+        "status": "error",
+        "message": INTERNAT_ERR_MSG.to_owned() + msg  
+    })
+}
 
 
 pub fn routes(cfg: &mut web::ServiceConfig){
@@ -13,6 +24,8 @@ pub fn routes(cfg: &mut web::ServiceConfig){
         .configure(admin::scope)
         .default_service(web::to(invalid_url));
 } 
+
+
 
 
 

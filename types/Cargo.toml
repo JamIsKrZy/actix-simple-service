@@ -6,7 +6,11 @@ edition = "2024"
 [dependencies]
 chrono = { version = "0.4.41", features = ["serde"] }
 uuid = { version = "1.17.0", features = ["serde", "v4"] }
-sqlx = { workspace = true}
-serde ={ workspace = true }
+sqlx = { workspace = true }
+serde = { workspace = true }
+argon2 = { workspace = true }
 serde_json ={ workspace = true }
 dotenvy = "0.15.7"
+jsonwebtoken = "9.3.1"
+base64 = "0.22.1"
+derive_more = "2.0.1"

@@ -1,7 +1,7 @@
 use actix_web::{middleware::Logger, web, App, HttpServer};
 use env_logger::Env;
 use openssl::ssl::{ SslAcceptor, SslAcceptorBuilder, SslFiletype, SslMethod};
-use types::AppState;
+use types::app_state::AppState;
 
 
 mod routes;
