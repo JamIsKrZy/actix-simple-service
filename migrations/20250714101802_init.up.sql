@@ -1,13 +1,10 @@
 -- Add up migration script here
 
 
-
-
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
-CREATE TYPE user_role AS ENUM ('admin', 'regular', 'staff');
+CREATE TYPE user_role AS ENUM ('admin', 'regular', 'employee');
 
 CREATE TABLE 
     IF NOT EXISTS users(
@@ -20,7 +17,7 @@ CREATE TABLE
         last_name VARCHAR(32) NOT NULL,
         location VARCHAR(128),
         phone_no VARCHAR(20) NOT NULL,
-        role user_role NOT NULL DEFAULT 'regular'
+        role user_role NOT NULL DEFAULT 'employee'
     );
 
 

@@ -3,30 +3,26 @@
 ### Dockerized Database
 
 
-## How to use sqlx-cli
-sqlx-cli created a [📁 migration](./migrations/)
-folder that contains up and down sql script files
 
-- up apply changes to the database
-- down revert/delete changes to the database 
+## Open Guide Book
+The book contains the documentations of the api endpoint, setting up a the backend, etc...
 
-**Make new migration**
+1. Download mdbook cli tool
 ```
-sqlx migrate add <title>
+cargo install mdbook
 ```
-
-**Apply changes/migrate to database**
+2. Go to actix-service-guide dir
 ```
-sqlx migrate run
+cd actix-service-guide
 ```
-
-
-**Revert changes/migrate to database**
+3. Open and run mdbook
 ```
-sqlx migrate revert
+mdbook serve --open
 ```
 
 
 
-#### References
-[Rust – Build a CRUD API with SQLX and PostgreSQL](https://codevoweb.com/rust-build-a-crud-api-with-sqlx-and-postgresql/)
+## Set-up postgress docker
+```
+docker compose up -d
+```

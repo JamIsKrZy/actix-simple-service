@@ -1,0 +1,11 @@
+[book]
+authors = ["JusMe"]
+language = "en"
+src = "src"
+title = "Actix Service Guide"
+
+[output.html.playground]
+runnable = false
+
+[output.html]
+additional-css = ["custom.css"]

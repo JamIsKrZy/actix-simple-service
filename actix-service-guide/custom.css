@@ -1,0 +1,100 @@
+
+
+:root{
+    --get-bg: #99B898;
+    --post-bg: #FECEAB;
+    --put-bg: #FF847C;
+    --delete-bg: #E84A5F;
+
+    --method-text: #2A363B;
+
+}
+
+.endpoint {
+    display: flex;
+    padding: 10px 0px 10px 10px;
+    justify-content: flex-start; 
+    align-items: center;
+    background: var(--quote-bg);
+    border: 1px solid var(--quote-border);
+    font-size: 18px;
+    /* font-weight: bold; */
+
+    gap: 1rem;
+
+    margin-bottom: 15px;
+}
+
+.method-get {
+    font-size: 24px;
+    width: 75px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--get-bg);
+    font-weight: bold;
+    border-radius: 3px;
+
+    border: 0.05px solid rgb(0, 0, 0);
+    text-transform: uppercase;
+
+    color: var(--method-text);
+}
+
+.method-post {
+    font-size: 24px;
+    width: 75px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--post-bg);
+    font-weight: bold;
+    border-radius: 3px;
+
+    border: 0.05px solid rgb(0, 0, 0);
+    text-transform: uppercase;
+
+    color: var(--method-text);
+
+}
+
+.method-put {
+    font-size: 24px;
+    width: 75px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--put-bg);
+    font-weight: bold;
+    border-radius: 3px;
+
+    border: 0.05px solid rgb(0, 0, 0);
+    text-transform: uppercase;
+
+    color: var(--method-text);
+
+}
+
+.method-delete {
+    font-size: 24px;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--delete-bg);
+    font-weight: bold;
+    border-radius: 3px;
+
+    border: 0.05px solid rgb(0, 0, 0);
+    text-transform: uppercase;
+
+    color: var(--method-text);
+
+}
+
+
+

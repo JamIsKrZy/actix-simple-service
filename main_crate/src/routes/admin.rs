@@ -1,25 +1,16 @@
-
-
-
-use actix_web::{get, web, HttpResponse, Responder};
+use actix_web::{HttpResponse, Responder, get, web};
 use serde_json::json;
+use types::INTERNAT_ERR_MSG;
 use types::app_state::AppState;
-use types::schemas::query::{ListAmount};
-use types::{INTERNAT_ERR_MSG};
-use types::models::user::{User, UserRole};
+use types::models::init::{User, UserRole};
+use types::schemas::query::ListAmount;
 
-pub fn scope(cfg: &mut web::ServiceConfig){
-    cfg.service(
-            web::scope("/admin")
-                .service(list_users)
-    );
+pub fn scope(cfg: &mut web::ServiceConfig) {
+    cfg.service(web::scope("/admin").service(list_users));
 }
 
 #[get("/user-list")]
-async fn list_users(
-    query: web::Query<ListAmount>,
-    data: web::Data<AppState>
-) -> impl Responder{
+async fn list_users(query: web::Query<ListAmount>, data: web::Data<AppState>) -> impl Responder {
     let limit = query.max.unwrap_or(25);
     let offset = query.offset.unwrap_or(0).saturating_sub(1);
 
@@ -33,14 +24,13 @@ async fn list_users(
         FROM users 
         ORDER BY username 
         LIMIT $1 OFFSET $2",
-        limit as i32,
-        offset as i32
+        limit,
+        offset
     )
     .fetch_all(&data.db)
     .await;
 
-    if let Ok(list) = query{
-
+    if let Ok(list) = query {
         HttpResponse::Ok().json(json!({
             "status": "success",
             "results": list.len(),
@@ -52,15 +42,13 @@ async fn list_users(
             "message": INTERNAT_ERR_MSG.to_owned() + "failed to fetch user list"
         }))
     }
-    
 }
 
-
-async fn create_admin() -> impl Responder{
+async fn create_admin() -> impl Responder {
     HttpResponse::NotImplemented()
 }
 
-async fn create_staff() -> impl Responder{
+async fn create_staff() -> impl Responder {
     HttpResponse::NotImplemented()
 }
 

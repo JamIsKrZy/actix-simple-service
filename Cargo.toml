@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["main_crate", "types"]
+members = ["main_crate", "middleware", "types"]
 
 
 [workspace.dependencies]

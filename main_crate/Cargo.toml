@@ -5,6 +5,7 @@ edition = "2024"
 
 
 [dependencies]
+middleware ={ path = "../middleware"}
 actix-web = { workspace = true, features = ["macros", "openssl"]}
 serde ={ workspace = true, features = ["derive"] }
 serde_json ={ workspace = true }

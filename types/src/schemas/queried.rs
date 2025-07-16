@@ -1,16 +1,12 @@
 use serde::Deserialize;
 use uuid::Uuid;
 
-use crate::models::user::UserRole;
-
-
-
+use crate::models::init::UserRole;
 
 #[derive(Debug, Deserialize)]
 #[allow(non_camel_case_types)]
-pub struct UserLoginEssential{
+pub struct UserLoginEssential {
     pub salt: String,
     pub password: String,
-    pub role: UserRole
+    pub role: UserRole,
 }
-
