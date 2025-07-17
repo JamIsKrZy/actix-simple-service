@@ -9,3 +9,4 @@ runnable = false
 
 [output.html]
 additional-css = ["custom.css"]
+default-theme = "ayu"
