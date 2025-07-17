@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS carts (
 
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL UNIQUE,
-    product_name VARCHAR(128) NOT NULL,
+    name VARCHAR(128) NOT NULL,
     description VARCHAR(256),
     price NUMERIC(12,2) NOT NULL,
     stocks BIGINT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS bundles (
     id SERIAL UNIQUE,
-    product_name VARCHAR(128) NOT NULL,
+    name VARCHAR(128) NOT NULL,
     price NUMERIC(12,2) NOT NULL,
 
     status product_status DEFAULT 'unavailable',

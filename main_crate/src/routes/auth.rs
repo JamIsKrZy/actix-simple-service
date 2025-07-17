@@ -41,7 +41,8 @@ pub mod public {
         let query_res = sqlx::query_as!(
             UserLoginEssential,
             "SELECT 
-                salt, password, role as \"role:UserRole\" 
+                id, salt, password, 
+                role as \"role:UserRole\" 
             FROM users 
             WHERE email = $1 OR username = $1",
             info.username
@@ -70,7 +71,7 @@ pub mod public {
             }));
         }
 
-        let Some(claim) = Claim::new(queried_cred.role) else {
+        let Some(claim) = Claim::new(queried_cred.id,queried_cred.role) else {
             return HttpResponse::Unauthorized().json(internal_err_json("Failed to create token"));
         };
 
@@ -166,7 +167,7 @@ pub mod user{
         HttpResponse::NotImplemented()
     }
 
-
+    
     
 }   
 
@@ -190,7 +191,7 @@ mod admin {
 
     }
 
-    
+
 
 }
 

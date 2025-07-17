@@ -11,6 +11,7 @@ pub mod jwt_ess {
     use chrono::{TimeDelta, Utc};
     use jsonwebtoken::{DecodingKey, EncodingKey, Header, Validation};
     use serde::{de::value::UsizeDeserializer, Deserialize, Serialize};
+    use uuid::Uuid;
 
     use crate::models::init::UserRole;
 
@@ -28,15 +29,16 @@ pub mod jwt_ess {
         )
     }
 
-    #[derive(Debug, Serialize, Deserialize)]
+    #[derive(Debug, Serialize, Deserialize, Clone)]
     pub struct Claim {
+        pub sub: Uuid,
         pub role: UserRole,
         iat: usize,
         exp: usize,
     }
 
     impl Claim {
-        pub fn new(role: UserRole) -> Option<Self> {
+        pub fn new(user_id: Uuid, role: UserRole) -> Option<Self> {
             let iat = Utc::now()
                 .timestamp() as usize;
 
@@ -44,7 +46,7 @@ pub mod jwt_ess {
                 .checked_add_signed(TimeDelta::hours(super::EXPECTED_EXPIRATION))?
                 .timestamp() as usize;
 
-            Some(Claim { iat, exp, role })
+            Some(Claim { sub: user_id, iat, exp, role })
         }
     }
 }

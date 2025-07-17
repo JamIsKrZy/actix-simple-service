@@ -1,11 +1,11 @@
 
 
-### Dockerized Database
+# Actix Simple Backend Service 
 
 
 
 ## Open Guide Book
-The book contains the documentations of the api endpoint, setting up a the backend, etc...
+The book contains the documentations of the api endpoint, setting up a the backend.
 
 1. Download mdbook cli tool
 ```
@@ -20,9 +20,3 @@ cd actix-service-guide
 mdbook serve --open
 ```
 
-
-
-## Set-up postgress docker
-```
-docker compose up -d
-```

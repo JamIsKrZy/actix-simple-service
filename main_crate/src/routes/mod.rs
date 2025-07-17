@@ -1,4 +1,4 @@
-use actix_web::{HttpResponse, Responder, web};
+use actix_web::{guard, web, HttpResponse, Responder};
 use middleware::auth_check::{AdminValidator, EmployeeValidator, UserValidator};
 use serde_json::{Value, json};
 use types::{app_state::AppState, INTERNAT_ERR_MSG};
@@ -11,7 +11,7 @@ mod bundle;
 mod product;
 mod service;
 
-
+mod util;
 
 
 pub fn routes(cfg: &mut web::ServiceConfig) {
@@ -31,6 +31,12 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
             web::scope("")
                 .wrap(UserValidator::new(&SECRET_KEY))
                 .configure(auth::user::scope)
+                .service(
+                    web::scope("/product")
+                    .configure(product::user::scope)
+                )
+
+
                 
         )
 
@@ -40,6 +46,10 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
         .service(
             web::scope("")
                 .wrap(EmployeeValidator::new(&SECRET_KEY))
+                .service(
+                    web::scope("/product")
+                    .configure(product::employee::scope)
+                )
         )
 
 
@@ -48,6 +58,10 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
         .service(
             web::scope("")
                 .wrap(AdminValidator::new(&SECRET_KEY))
+                .service(
+                    web::scope("/product")
+                    .configure(product::admin::scope)
+                )
         )
 
 
