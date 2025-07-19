@@ -53,6 +53,7 @@ pub struct EditProduct{
     description: Option<String>,
     price: Option<Decimal>,
     stocks: Option<i64>,
+    status: Option<ProductStatus>
 }
 
 impl EditProduct {
@@ -66,6 +67,7 @@ impl EditProduct {
             stocks: self.stocks, 
             edited_by: who,
             edited_time: Utc::now(), 
+            status: self.status
         }
     }
 }
@@ -78,7 +80,8 @@ pub struct RecordedEditProduct{
     pub price: Option<Decimal>,
     pub stocks: Option<i64>,
     pub edited_by: Uuid,
-    pub edited_time: DateTime<Utc>
+    pub edited_time: DateTime<Utc>,
+    pub status: Option<ProductStatus>
 }
 
 

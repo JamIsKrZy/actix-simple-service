@@ -9,7 +9,6 @@ mod user;
 mod auth;
 mod bundle;
 mod product;
-mod service;
 
 mod util;
 
@@ -53,6 +52,7 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
                 .wrap(AdminValidator::new(&SECRET_KEY))
                 .configure(product::admin::scope)
                 .configure(user::admin::scope)
+                .configure(bundle::admin::scope)
         )
 
 

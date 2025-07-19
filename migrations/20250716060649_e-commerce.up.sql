@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS products (
     stocks BIGINT NOT NULL,
 
     created_by UUID NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT now(),
     edited_by UUID DEFAULT NULL,
     edited_time TIMESTAMP DEFAULT NULL,
     status product_status DEFAULT 'unavailable',
@@ -39,12 +40,13 @@ CREATE TABLE IF NOT EXISTS bundles (
     name VARCHAR(128) NOT NULL,
     price NUMERIC(12,2) NOT NULL,
 
-    status product_status DEFAULT 'unavailable',
+    status product_status NOT NULL DEFAULT 'unavailable',
     created_by UUID NOT NULL,
-    edited_by UUID NOT NULL,
-    edited_time TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT now(),
+    edited_by UUID,
+    edited_time TIMESTAMP,
 
-    PRIMARY KEY (id, name),
+    PRIMARY KEY (name),
     FOREIGN KEY (created_by) REFERENCES users(id),
     FOREIGN KEY (edited_by) REFERENCES users(id)
 );

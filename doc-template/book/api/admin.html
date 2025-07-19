@@ -214,6 +214,9 @@ who have a admin role previlages</p>
             <a href="#edit-product">
                 Edit
             </a>
+            <a href="#edit-product">
+                List
+            </a>
         </td>
             <!-- Column for Bundles  -->
         <td>
@@ -240,7 +243,7 @@ who have a admin role previlages</p>
 <h2 id="create-user-employeeadmin-previlage"><a class="header" href="#create-user-employeeadmin-previlage">Create User (Employee/Admin Previlage)</a></h2>
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/admin/create-user   
+    https://127.0.0.1:8080/admin/user/new   
 </div>
 <h4 id="-request-body-json"><a class="header" href="#-request-body-json">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
@@ -250,20 +253,35 @@ who have a admin role previlages</p>
     "first_name": String,
     "last_name": String,
     "phone_no": String,
-    "location": String | null
+    "location"?: String,
+    "role:" "admin" | "employee" |"regular"
 }
 </code></pre>
 <h4 id="-response-body-json"><a class="header" href="#-response-body-json">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
-    "status": "success" | "fail" | "error",
-    "message": String
+
+    // successful service
+    "success"?: {
+        "query": 
+    },
+    
+    // fail to comply service
+    "fail"?: {
+        "message": String
+    },
+
+    // Any internal service problem
+    "error"?: {
+        "message": String
+    }
+
 }   
 </code></pre>
 <hr />
-<h2 id="promote-or-demote-user-role"><a class="header" href="#promote-or-demote-user-role">Promote or Demote user role</a></h2>
+<h2 id="edit-user"><a class="header" href="#edit-user">Edit user</a></h2>
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/admin/edit-user/{user-id}
+    https://127.0.0.1:8080/admin/user/edit/{user-id}
 </div>
 <h4 id="-path"><a class="header" href="#-path">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
@@ -272,26 +290,45 @@ who have a admin role previlages</p>
 </div>
 <h4 id="-request-body-json-1"><a class="header" href="#-request-body-json-1">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
-
+    "email"?: String,
+    "first_name"?: String,
+    "last_name"?: String,
+    "phone_no"?: String,
+    "location"?: String,
+    "role:" "admin" | "employee" |"regular"
 }
 </code></pre>
 <h4 id="-response-body-json-1"><a class="header" href="#-response-body-json-1">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
-    "status": "success" | "fail" | "error",
-    "message": String
+
+    // successful service
+    "success"?: {
+        "query": 
+    },
+    
+    // fail to comply service
+    "fail"?: {
+        "message": String
+    },
+
+    // Any internal service problem
+    "error"?: {
+        "message": String
+    }
+
 }   
 </code></pre>
 <hr />
 <h2 id="create-product"><a class="header" href="#create-product">Create Product</a></h2>
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/product/new   
+    https://127.0.0.1:8080/admin/product/new   
 </div>
 <h4 id="-request-body-json-2"><a class="header" href="#-request-body-json-2">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
-    "product_name": String,
+    "name": String,
     "description"?: String,
-    "price": number,
+    "price": number | String,
     "stocks": number,
     "status"?: "unavailable" | "available" 
 }
@@ -299,19 +336,17 @@ who have a admin role previlages</p>
 </code></pre>
 <h4 id="-response-body-json-2"><a class="header" href="#-response-body-json-2">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
-    "status": "success" | "fail" | "error",
-    "message": String
 }   
 </code></pre>
 <hr />
 <h2 id="edit-product"><a class="header" href="#edit-product">Edit Product</a></h2>
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/product/{product_id}/edit
+    https://127.0.0.1:8080/admin/product/edit/{product_id}
 </div>
 <h4 id="-path-1"><a class="header" href="#-path-1">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
-<tr><td><code>product_id</code></td><td>string</td></tr>
+<tr><td><code>product_id</code></td><td>number</td></tr>
 </tbody></table>
 </div>
 <h4 id="-request-body-json-3"><a class="header" href="#-request-body-json-3">🔸 Request body (Json):</a></h4>
@@ -325,15 +360,31 @@ who have a admin role previlages</p>
 </code></pre>
 <h4 id="-response-body-json-3"><a class="header" href="#-response-body-json-3">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
-    "status": "success" | "fail" | "error",
-    "message": String
+    
+}   
+</code></pre>
+<hr />
+<h2 id="product-list"><a class="header" href="#product-list">Product List</a></h2>
+<div class="endpoint">
+    <div class="method-get">get</div>
+    https://127.0.0.1:8080/admin/product/list
+</div>
+<h4 id="-query"><a class="header" href="#-query">🔸 Query:</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>limit</code></td><td>number</td><td>Yes</td><td>Maximum nummber of list to return</td></tr>
+<tr><td><code>offset</code></td><td>number</td><td>Yes</td><td>Index to start in the list</td></tr>
+</tbody></table>
+</div>
+<h4 id="-response-body-json-4"><a class="header" href="#-response-body-json-4">🔹 Response body (Json)</a></h4>
+<pre><code class="language-json">{
+    
 }   
 </code></pre>
 <hr />
 <h2 id="create-bundle"><a class="header" href="#create-bundle">Create Bundle</a></h2>
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/bundle/new   
+    https://127.0.0.1:8080/admin/bundle/new   
 </div>
 <h4 id="-request-body-json-4"><a class="header" href="#-request-body-json-4">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
@@ -348,7 +399,7 @@ who have a admin role previlages</p>
     ]
 }
 </code></pre>
-<h4 id="-response-body-json-4"><a class="header" href="#-response-body-json-4">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-5"><a class="header" href="#-response-body-json-5">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -358,7 +409,7 @@ who have a admin role previlages</p>
 <h2 id="edit-bundle"><a class="header" href="#edit-bundle">Edit Bundle</a></h2>
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/bundle/{bundle_id}/edit
+    https://127.0.0.1:8080/admin/bundle/edit/{bundle_id}
 </div>
 <h4 id="-path-2"><a class="header" href="#-path-2">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
@@ -391,7 +442,7 @@ who have a admin role previlages</p>
 }
 </code></pre>
 <p>Info: "edit_product" does only change the quantity number, not the product itself</p>
-<h4 id="-response-body-json-5"><a class="header" href="#-response-body-json-5">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-6"><a class="header" href="#-response-body-json-6">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -408,7 +459,7 @@ who have a admin role previlages</p>
     (Ongoing...)
 }
 </code></pre>
-<h4 id="-response-body-json-6"><a class="header" href="#-response-body-json-6">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-7"><a class="header" href="#-response-body-json-7">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -425,7 +476,7 @@ who have a admin role previlages</p>
     (Ongoing...)
 }
 </code></pre>
-<h4 id="-response-body-json-7"><a class="header" href="#-response-body-json-7">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-8"><a class="header" href="#-response-body-json-8">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -448,7 +499,7 @@ who have a admin role previlages</p>
     "expiry_date": String(ISO8601 Date Format),
 }
 </code></pre>
-<h4 id="-response-body-json-8"><a class="header" href="#-response-body-json-8">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-9"><a class="header" href="#-response-body-json-9">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -471,7 +522,7 @@ who have a admin role previlages</p>
     "expiry_date": String(ISO8601 Date Format),
 }
 </code></pre>
-<h4 id="-response-body-json-9"><a class="header" href="#-response-body-json-9">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-10"><a class="header" href="#-response-body-json-10">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -494,7 +545,7 @@ who have a admin role previlages</p>
     "expiry_date": String(ISO8601 Date Format),
 }
 </code></pre>
-<h4 id="-response-body-json-10"><a class="header" href="#-response-body-json-10">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-11"><a class="header" href="#-response-body-json-11">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -511,7 +562,7 @@ who have a admin role previlages</p>
 <tr><td><code>product_id</code></td><td>string</td></tr>
 </tbody></table>
 </div>
-<h4 id="-response-body-json-11"><a class="header" href="#-response-body-json-11">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-12"><a class="header" href="#-response-body-json-12">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -528,7 +579,7 @@ who have a admin role previlages</p>
 <tr><td><code>bundle_id</code></td><td>string</td></tr>
 </tbody></table>
 </div>
-<h4 id="-response-body-json-12"><a class="header" href="#-response-body-json-12">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-13"><a class="header" href="#-response-body-json-13">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String
@@ -545,7 +596,7 @@ who have a admin role previlages</p>
 <tr><td><code>service_id</code></td><td>string</td></tr>
 </tbody></table>
 </div>
-<h4 id="-response-body-json-13"><a class="header" href="#-response-body-json-13">🔹 Response body (Json)</a></h4>
+<h4 id="-response-body-json-14"><a class="header" href="#-response-body-json-14">🔹 Response body (Json)</a></h4>
 <pre><code class="language-json">{
     "status": "success" | "fail" | "error",
     "message": String

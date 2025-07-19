@@ -2,7 +2,7 @@ use serde::Deserialize;
 
 pub mod admin;
 pub mod product;
-
+pub mod bundle;
 
 #[derive(Debug, Deserialize)]
 pub struct QueryBounds {
@@ -14,7 +14,7 @@ impl QueryBounds {
     pub fn finalize(self) -> (i64, i64){
         (
             self.max.unwrap_or(25),
-            self.offset.unwrap_or(0).saturating_sub(1),
+            self.offset.unwrap_or(0).max(0),
         )
     } 
 }

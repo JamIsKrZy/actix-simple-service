@@ -90,10 +90,21 @@ pub async fn patch_product(
         query.push("stocks = ")
             .push_bind(stocks);
         empty = false;    
+        start_parenthesis = true;
+    }
+
+    if let Some(status) = edited_product.status {
+        if start_parenthesis {
+            query.push(", ");
+        }
+
+        query.push("status = ")
+            .push_bind(status);
+        empty = false;    
     }
 
     if empty {
-        return Err(QueryErr::EmptyValue);
+        return Err(QueryErr::EmptyItem);
     }
 
     query.push(" WHERE id = ").push_bind(product_id);

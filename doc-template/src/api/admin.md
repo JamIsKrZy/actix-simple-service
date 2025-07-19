@@ -40,6 +40,9 @@ who have a admin role previlages
             <a href="#edit-product">
                 Edit
             </a>
+            <a href="#edit-product">
+                List
+            </a>
         </td>
             <!-- Column for Bundles  -->
         <td>
@@ -70,7 +73,7 @@ who have a admin role previlages
 ## Create User (Employee/Admin Previlage)
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/admin/create-user   
+    https://127.0.0.1:8080/admin/user/new   
 </div>
 
 #### 🔸 Request body (Json): 
@@ -83,7 +86,8 @@ who have a admin role previlages
     "first_name": String,
     "last_name": String,
     "phone_no": String,
-    "location": String | null
+    "location"?: String,
+    "role:" "admin" | "employee" |"regular"
 }
 ```
 
@@ -91,17 +95,31 @@ who have a admin role previlages
 
 ```json
 {
-    "status": "success" | "fail" | "error",
-    "message": String
+
+    // successful service
+    "success"?: {
+        "query": 
+    },
+    
+    // fail to comply service
+    "fail"?: {
+        "message": String
+    },
+
+    // Any internal service problem
+    "error"?: {
+        "message": String
+    }
+
 }   
 ```
 ---
 
-## Promote or Demote user role
+## Edit user
 
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/admin/edit-user/{user-id}
+    https://127.0.0.1:8080/admin/user/edit/{user-id}
 </div>
 
 #### 🔸 Path: 
@@ -112,16 +130,34 @@ who have a admin role previlages
 #### 🔸 Request body (Json): 
 ```json
 {
-
+    "email"?: String,
+    "first_name"?: String,
+    "last_name"?: String,
+    "phone_no"?: String,
+    "location"?: String,
+    "role:" "admin" | "employee" |"regular"
 }
 ```
 
 #### 🔹 Response body (Json)
-
 ```json
 {
-    "status": "success" | "fail" | "error",
-    "message": String
+
+    // successful service
+    "success"?: {
+        "query": 
+    },
+    
+    // fail to comply service
+    "fail"?: {
+        "message": String
+    },
+
+    // Any internal service problem
+    "error"?: {
+        "message": String
+    }
+
 }   
 ```
 
@@ -132,15 +168,15 @@ who have a admin role previlages
 ## Create Product
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/product/new   
+    https://127.0.0.1:8080/admin/product/new   
 </div>
 
 #### 🔸 Request body (Json): 
 ```json
 {
-    "product_name": String,
+    "name": String,
     "description"?: String,
-    "price": number,
+    "price": number | String,
     "stocks": number,
     "status"?: "unavailable" | "available" 
 }
@@ -150,8 +186,6 @@ who have a admin role previlages
 #### 🔹 Response body (Json)
 ```json
 {
-    "status": "success" | "fail" | "error",
-    "message": String
 }   
 ```
 
@@ -161,13 +195,13 @@ who have a admin role previlages
 
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/product/{product_id}/edit
+    https://127.0.0.1:8080/admin/product/edit/{product_id}
 </div>
 
 #### 🔸 Path: 
 | Name        | Type   | 
 |-------------|--------|
-|`product_id` | string | 
+|`product_id` | number | 
 
 #### 🔸 Request body (Json): 
 ```json
@@ -183,19 +217,43 @@ who have a admin role previlages
 #### 🔹 Response body (Json)
 ```json
 {
-    "status": "success" | "fail" | "error",
-    "message": String
+    
 }   
 ```
 
 ---
 
 
+## Product List
+
+<div class="endpoint">
+    <div class="method-get">get</div>
+    https://127.0.0.1:8080/admin/product/list
+</div>
+
+#### 🔸 Query: 
+| Name        | Type   | Required | Description | 
+|-------------|--------|----------|-------------|
+|`limit`  | number | Yes | Maximum nummber of list to return | 
+|`offset` | number | Yes | Index to start in the list |
+
+
+#### 🔹 Response body (Json)
+```json
+{
+    
+}   
+```
+
+---
+
+
+
 ## Create Bundle
 
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/bundle/new   
+    https://127.0.0.1:8080/admin/bundle/new   
 </div>
 
 #### 🔸 Request body (Json): 
@@ -227,7 +285,7 @@ who have a admin role previlages
 
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/bundle/{bundle_id}/edit
+    https://127.0.0.1:8080/admin/bundle/edit/{bundle_id}
 </div>
 
 #### 🔸 Path: 

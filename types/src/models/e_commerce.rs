@@ -20,6 +20,12 @@ pub enum ProductStatus{
     Unavailable
 }
 
+impl Default for ProductStatus {
+    fn default() -> Self {
+        Self::Unavailable
+    }
+}
+
 
 
 

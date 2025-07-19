@@ -97,7 +97,7 @@ pub async fn patch_user(
 
 
     if empty {
-        return Err(QueryErr::EmptyValue);
+        return Err(QueryErr::EmptyItem);
     }
 
     query.push("WHERE id = ").push_bind(id);
