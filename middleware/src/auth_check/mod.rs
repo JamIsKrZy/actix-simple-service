@@ -41,7 +41,7 @@ where
 
                     if !token.claims.role.is_admin() {
                         return  Box::pin(async move { 
-                            Err(ErrorUnauthorized("Non-admin user")) 
+                            Err(ErrorUnauthorized("Non-administrator user")) 
                         });
                     }
 
@@ -136,7 +136,7 @@ where
 
                     if !token.claims.role.is_admin() || !token.claims.role.is_employee() {
                         return  Box::pin(async move { 
-                            Err(ErrorUnauthorized("Non-admin user")) 
+                            Err(ErrorUnauthorized("Non-Employee or Non-administrator  user")) 
                         });
                     }
 
@@ -175,14 +175,14 @@ where
 {
     type Response = ServiceResponse<B>;
     type Error = Error;
-    type Transform = AdminValidatorService<S>;
+    type Transform = EmployeeValidatorService<S>;
     type InitError = ();
     type Future = Ready<Result<Self::Transform, Self::InitError>>;
 
     fn new_transform(&self, service: S) -> Self::Future {
         let (validation, decoder) = types::jwt_ess::decoding_key(&self.secret_key);
 
-        ready(Ok(AdminValidatorService {
+        ready(Ok(EmployeeValidatorService {
             service,
             validation,
             decoder,

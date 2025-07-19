@@ -1,6 +1,7 @@
 pub mod app_state;
 pub mod models;
 pub mod schemas;
+pub mod payload;
 mod utils;
 
 pub const INTERNAT_ERR_MSG: &'static str = "Something went wrong: ";

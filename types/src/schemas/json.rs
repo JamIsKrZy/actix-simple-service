@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::models::init::{RegisterUser, ToUser, USER_EMAIL_CAP, User, UserRole};
+use crate::models::init::{RegisterUser, NewSaltUser, USER_EMAIL_CAP, User, UserRole};
 
 #[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -16,13 +16,14 @@ pub struct SignUpUser {
     location: Option<String>,
 }
 
-impl ToUser for SignUpUser {
+impl NewSaltUser for SignUpUser {
     type E = ();
+    type HashedOutput = RegisterUser;
 
-    fn build_to_user<T: crate::app_state::HashifyPassword>(
+    fn generate_hash_salt<T: crate::app_state::HashifyPassword>(
         self,
         hasher: &T,
-    ) -> Result<RegisterUser, Self::E> {
+    ) -> Result<Self::HashedOutput, Self::E> {
         let (hash_pass, salt) = hasher
             .hashify_pass_with_salt(self.password)
             .map_err(|_| ())?;
@@ -38,6 +39,7 @@ impl ToUser for SignUpUser {
             phone_no: self.phone_no,
         })
     }
+    
 }
 
 #[derive(Debug, Deserialize)]

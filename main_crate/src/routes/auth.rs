@@ -7,7 +7,7 @@ pub mod public {
     use serde_json::json;
     use types::app_state::{AppState, HashifyPassword as _};
     use types::jwt_ess::Claim;
-    use types::models::init::{ToUser, UserRole};
+    use types::models::init::{NewSaltUser, UserRole};
     use types::schemas::json::{LoginUser, SignUpUser};
     use types::schemas::queried::UserLoginEssential;
 
@@ -88,8 +88,9 @@ pub mod public {
             .finish();
 
         HttpResponse::Ok().cookie(cookie).json(json!({
-            "status": "success",
-            "message": "successful auth"
+            "success": {
+                "message": "successful auth"
+            }
         }))
     }
 
@@ -98,7 +99,8 @@ pub mod public {
 
     #[get("/sign-up")]
     async fn sign_up(info: web::Json<SignUpUser>, app: web::Data<AppState>) -> impl Responder {
-        let user = info.into_inner().build_to_user(app.as_ref());
+
+        let user = info.into_inner().generate_hash_salt(app.as_ref());
 
         let Ok(user) = user else {
             return HttpResponse::InternalServerError()

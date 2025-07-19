@@ -6,7 +6,8 @@ use openssl::ssl::{SslAcceptor, SslAcceptorBuilder, SslFiletype, SslMethod};
 use types::app_state::AppState;
 
 mod routes;
-mod service;
+mod queries;
+mod error;
 
 
 static SECRET_KEY: LazyLock<String> = LazyLock::new(|| {
@@ -30,7 +31,7 @@ fn init_ssl() -> SslAcceptorBuilder {
 
 fn init_env() {
     dotenvy::dotenv().expect("Failed to set dot_envy");
-    env_logger::init_from_env(Env::default().default_filter_or("info"));
+    env_logger::init_from_env(Env::default().default_filter_or("debug"));
 }
 
 #[actix_web::main]
@@ -43,6 +44,7 @@ async fn main() -> std::io::Result<()> {
     );
     
     let ssl_builder = init_ssl();
+
 
     HttpServer::new(move || {
         App::new()

@@ -37,14 +37,14 @@ pub struct Cart{
 #[allow(unused_attributes)]
 pub struct Product{
     id: i32,
-    product_name: String,
-    description: String,
+    name: String,
+    description: Option<String>,
     price: Decimal,
     stocks: i64,
 
     created_by: Uuid,
-    edited_by: Uuid,
-    edited_time: NaiveDateTime,
+    edited_by: Option<Uuid>,
+    edited_time: Option<NaiveDateTime>,
     status: ProductStatus,
 }
 

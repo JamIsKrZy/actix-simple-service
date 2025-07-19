@@ -101,14 +101,18 @@ who have a admin role previlages
 
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/admin/edit-user-role  
+    https://127.0.0.1:8080/admin/edit-user/{user-id}
 </div>
+
+#### 🔸 Path: 
+| Name        | Type   | 
+|-------------|--------|
+|`user_id` | string | 
 
 #### 🔸 Request body (Json): 
 ```json
 {
-    "user_id": String,
-    "role" : "regular" | "employee" | "admin" 
+
 }
 ```
 
@@ -128,7 +132,7 @@ who have a admin role previlages
 ## Create Product
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/product/create   
+    https://127.0.0.1:8080/product/new   
 </div>
 
 #### 🔸 Request body (Json): 
@@ -191,7 +195,7 @@ who have a admin role previlages
 
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/bundle/create   
+    https://127.0.0.1:8080/bundle/new   
 </div>
 
 #### 🔸 Request body (Json): 
@@ -274,7 +278,7 @@ Info: "edit_product" does only change the quantity number, not the product itsel
 ## Create Services
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/service/create   
+    https://127.0.0.1:8080/service/new   
 </div>
 
 #### 🔸 Request body (Json): 

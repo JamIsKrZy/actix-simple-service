@@ -4,7 +4,7 @@
 mod public {
     use actix_web::{get, web, HttpResponse, Responder};
     use serde_json::json;
-    use types::schemas::product::ItemQuery;
+    use types::payload::product::ItemQuery;
 
     pub fn scope(cfg: &mut web::ServiceConfig) {
 
@@ -37,8 +37,11 @@ pub mod user {
 
     pub fn scope(cfg: &mut web::ServiceConfig) {
         cfg
+        .service(
+            web::scope("/product")
             .service(purchased_history)
-
+        )
+            
         ;
     }
 
@@ -97,50 +100,86 @@ pub mod employee {
 
 
 pub mod admin {
-    use actix_web::{get, http::Error, post, web, HttpMessage, HttpRequest, HttpResponse, Responder, Result};
+    use actix_web::{get, http::Error, patch, post, web, HttpMessage, HttpRequest, HttpResponse, Responder, Result};
     use serde_json::json;
-    use types::{jwt_ess::Claim, schemas::product::CreateProduct};
+    use types::{app_state::AppState, jwt_ess::Claim, payload::{product::{CreateProduct, EditProduct}, QueryBounds}};
 
-    use crate::routes::util;
+    use crate::{error, queries::{self, product::insert_one_product}, routes::{util, ServiceResult}};
 
     pub fn scope(cfg: &mut web::ServiceConfig) {
         cfg
+        .service(
+            web::scope("/product")
             .service(create_product)
-            .service(edit_product)
+            .service(patch_product)
+            .service(product_list)
+        )
+            
 
         ;
     }
 
 
-    use util::Error as UtilErr;
-
     #[post("/new")]
     async fn create_product(
         req: HttpRequest,
-        product: web::Json<CreateProduct>
-    ) -> Result<HttpResponse, UtilErr> {
+        product: web::Json<CreateProduct>,
+        app: web::Data<AppState>
+    ) -> Result<HttpResponse, error::ServiceError> {
 
-        let created_by = util::claim_ref(&req)?;
+        let created_by = util::get_claim_id(&req)?;
             
+        let final_product = product.into_inner()
+            .set_record(&created_by);
         
+        insert_one_product(final_product, &app.db).await?;
 
-
-
-        HttpResponse::Ok().json(json!({
+        Ok(HttpResponse::Ok().json(json!({
             "status": "success",
             "message": "product is created!"
-        }))
+        })))
     }
 
-    #[post("/edit/{product_id}")]
-    async fn edit_product(
-        id: web::Path<i32>
-    ) -> impl Responder {
-        HttpResponse::NotImplemented()
+    #[patch("/edit/{product_id}")]
+    async fn patch_product(
+        id: web::Path<i32>,
+        product: web::Json<EditProduct>,
+        app: web::Data<AppState>,
+        req: HttpRequest
+    ) -> Result<HttpResponse, error::ServiceError> {
+
+        let created_by = util::get_claim_id(&req)?;
+
+        let recorded_product = product.into_inner()
+            .record_by(created_by);
+
+        queries::product::patch_product(id.into_inner(), recorded_product, &app.db).await?;
+
+        Ok(HttpResponse::Ok().json(json!({
+            "success": {
+                "message": "successfully edited!"
+            }
+        })))
+        
     }
 
-    
+    #[get("/list")]
+    async fn product_list(
+        bounds: web::Query<QueryBounds>,
+        app: web::Data<AppState>,
+    ) -> ServiceResult {
 
+        let bounds = bounds.into_inner().finalize();
+
+        let list = queries::product::product_list(bounds, &app.db).await?;
+
+        Ok(HttpResponse::Ok().json(json!({
+            "success" : {
+                "message": "",
+                "list": list
+            }
+        })))
+    }
 
 
 }

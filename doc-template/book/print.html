@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="en" class="ayu sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -36,7 +36,7 @@
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "";
-            const default_light_theme = "light";
+            const default_light_theme = "ayu";
             const default_dark_theme = "navy";
             window.path_to_searchindex_js = "searchindex.js";
         </script>
@@ -79,7 +79,7 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
-            html.classList.remove('light')
+            html.classList.remove('ayu')
             html.classList.add(theme);
             html.classList.add("js");
         </script>
@@ -583,12 +583,16 @@ who have a admin role previlages</p>
 <h2 id="promote-or-demote-user-role"><a class="header" href="#promote-or-demote-user-role">Promote or Demote user role</a></h2>
 <div class="endpoint">
     <div class="method-patch">patch</div>
-    https://127.0.0.1:8080/admin/edit-user-role  
+    https://127.0.0.1:8080/admin/edit-user/{user-id}
+</div>
+<h4 id="-path"><a class="header" href="#-path">🔸 Path:</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
+<tr><td><code>user_id</code></td><td>string</td></tr>
+</tbody></table>
 </div>
 <h4 id="-request-body-json-5"><a class="header" href="#-request-body-json-5">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
-    "user_id": String,
-    "role" : "regular" | "employee" | "admin" 
+
 }
 </code></pre>
 <h4 id="-response-body-json-3"><a class="header" href="#-response-body-json-3">🔹 Response body (Json)</a></h4>
@@ -601,7 +605,7 @@ who have a admin role previlages</p>
 <h2 id="create-product"><a class="header" href="#create-product">Create Product</a></h2>
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/product/create   
+    https://127.0.0.1:8080/product/new   
 </div>
 <h4 id="-request-body-json-6"><a class="header" href="#-request-body-json-6">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
@@ -625,7 +629,7 @@ who have a admin role previlages</p>
     <div class="method-patch">patch</div>
     https://127.0.0.1:8080/product/{product_id}/edit
 </div>
-<h4 id="-path"><a class="header" href="#-path">🔸 Path:</a></h4>
+<h4 id="-path-1"><a class="header" href="#-path-1">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>product_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -649,7 +653,7 @@ who have a admin role previlages</p>
 <h2 id="create-bundle"><a class="header" href="#create-bundle">Create Bundle</a></h2>
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/bundle/create   
+    https://127.0.0.1:8080/bundle/new   
 </div>
 <h4 id="-request-body-json-8"><a class="header" href="#-request-body-json-8">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
@@ -676,7 +680,7 @@ who have a admin role previlages</p>
     <div class="method-patch">patch</div>
     https://127.0.0.1:8080/bundle/{bundle_id}/edit
 </div>
-<h4 id="-path-1"><a class="header" href="#-path-1">🔸 Path:</a></h4>
+<h4 id="-path-2"><a class="header" href="#-path-2">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>bundle_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -717,7 +721,7 @@ who have a admin role previlages</p>
 <h2 id="create-services"><a class="header" href="#create-services">Create Services</a></h2>
 <div class="endpoint">
     <div class="method-post">post</div>
-    https://127.0.0.1:8080/service/create   
+    https://127.0.0.1:8080/service/new   
 </div>
 <h4 id="-request-body-json-10"><a class="header" href="#-request-body-json-10">🔸 Request body (Json):</a></h4>
 <pre><code class="language-json">{
@@ -753,7 +757,7 @@ who have a admin role previlages</p>
     <div class="method-put">put</div>
     https://127.0.0.1:8080/product/{product_id}/set-discount   
 </div>
-<h4 id="-path-2"><a class="header" href="#-path-2">🔸 Path:</a></h4>
+<h4 id="-path-3"><a class="header" href="#-path-3">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>product_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -776,7 +780,7 @@ who have a admin role previlages</p>
     <div class="method-put">put</div>
     https://127.0.0.1:8080/bundle/{bundle_id}/set-discount   
 </div>
-<h4 id="-path-3"><a class="header" href="#-path-3">🔸 Path:</a></h4>
+<h4 id="-path-4"><a class="header" href="#-path-4">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>bundle_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -799,7 +803,7 @@ who have a admin role previlages</p>
     <div class="method-put">put</div>
     https://127.0.0.1:8080/service/{service_id}/set-discount   
 </div>
-<h4 id="-path-4"><a class="header" href="#-path-4">🔸 Path:</a></h4>
+<h4 id="-path-5"><a class="header" href="#-path-5">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>service_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -822,7 +826,7 @@ who have a admin role previlages</p>
     <div class="method-patch">patch</div>
     https://127.0.0.1:8080/product/{product_id}/rmv-discount   
 </div>
-<h4 id="-path-5"><a class="header" href="#-path-5">🔸 Path:</a></h4>
+<h4 id="-path-6"><a class="header" href="#-path-6">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>product_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -839,7 +843,7 @@ who have a admin role previlages</p>
     <div class="method-patch">patch</div>
     https://127.0.0.1:8080/bundle/{bundle_id}/rmv-discount   
 </div>
-<h4 id="-path-6"><a class="header" href="#-path-6">🔸 Path:</a></h4>
+<h4 id="-path-7"><a class="header" href="#-path-7">🔸 Path:</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody>
 <tr><td><code>bundle_id</code></td><td>string</td></tr>
 </tbody></table>
@@ -895,6 +899,22 @@ with actix-web framework</p>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

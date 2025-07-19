@@ -17,3 +17,4 @@ chrono = { version = "0.4.41", features = ["serde"] }
 dotenvy = "0.15.7"
 uuid = { version = "1.17.0", features = ["serde", "v4"] }
 sqlx = { workspace = true}
+derive_more = "2.0.1"

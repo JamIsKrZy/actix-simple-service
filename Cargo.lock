@@ -1720,6 +1720,7 @@ dependencies = [
  "actix-cors",
  "actix-web",
  "chrono",
+ "derive_more",
  "dotenvy",
  "env_logger",
  "middleware",

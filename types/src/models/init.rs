@@ -29,10 +29,11 @@ impl UserRole {
     }
 }
 
-pub trait ToUser {
+pub trait NewSaltUser {
     type E;
+    type HashedOutput;
 
-    fn build_to_user<T: HashifyPassword>(self, hasher: &T) -> Result<RegisterUser, Self::E>;
+    fn generate_hash_salt<T: HashifyPassword>(self, hasher: &T) -> Result<Self::HashedOutput, Self::E>;
 }
 
 pub(crate) const USER_EMAIL_CAP: usize = 64;

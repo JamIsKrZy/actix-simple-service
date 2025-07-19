@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS carts (
 
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL UNIQUE,
-    name VARCHAR(128) NOT NULL,
+    name VARCHAR(128) NOT NULL UNIQUE,
     description VARCHAR(256),
     price NUMERIC(12,2) NOT NULL,
     stocks BIGINT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS products (
     edited_time TIMESTAMP DEFAULT NULL,
     status product_status DEFAULT 'unavailable',
 
-    PRIMARY KEY (id, product_name),
+    PRIMARY KEY (id, name),
     FOREIGN KEY (created_by) REFERENCES users(id),
     FOREIGN KEY (edited_by) REFERENCES users(id)
 );
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS bundles (
     edited_by UUID NOT NULL,
     edited_time TIMESTAMP NOT NULL,
 
-    PRIMARY KEY (id, product_name),
+    PRIMARY KEY (id, name),
     FOREIGN KEY (created_by) REFERENCES users(id),
     FOREIGN KEY (edited_by) REFERENCES users(id)
 );
