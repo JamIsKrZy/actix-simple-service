@@ -17,5 +17,6 @@ pub enum QueryErr{
     FailedToInsert(String),
     FailedToCollect(String),
     FailedToPatch(String),
-    FailedToJoin
+    FailedToJoin,
+    FailedToDelete(String)
 }

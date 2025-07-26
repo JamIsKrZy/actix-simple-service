@@ -100,9 +100,9 @@ pub mod employee {
 
 
 pub mod admin {
-    use actix_web::{get, http::Error, patch, post, web, HttpMessage, HttpRequest, HttpResponse, Responder, Result};
+    use actix_web::{get, patch, post, web,  HttpRequest, HttpResponse, Result};
     use serde_json::json;
-    use types::{app_state::AppState, jwt_ess::Claim, payload::{product::{CreateProduct, EditProduct}, QueryBounds}};
+    use types::{app_state::AppState, payload::{product::{CreateProduct, EditProduct}, QueryBounds}};
 
     use crate::{error, queries::{self, product::insert_one_product}, routes::{util, ServiceResult}};
 
@@ -115,7 +115,7 @@ pub mod admin {
             .service(product_list)
         )
             
-
+            
         ;
     }
 

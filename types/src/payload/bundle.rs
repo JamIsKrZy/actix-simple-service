@@ -37,6 +37,32 @@ impl CreateBundle {
 
 
 
+#[derive(Debug, Deserialize)]
+pub struct EditBundle{
+    pub name: Option<String>,
+    pub description: Option<String>,
+    pub price: Option<Decimal>,
+    pub stocks: Option<Decimal>,
+    pub remove_product: Option<Vec<i32>>,
+    pub add_product: Option<Vec<BundleItem>>,
+    pub edit_product: Option<Vec<BundleItem>>
+}
+
+impl EditBundle {
+
+    pub fn bundle_has_some(&self) -> bool {
+        self.name.is_some() |
+        self.description.is_some() |
+        self.price.is_some() |
+        self.stocks.is_some()  
+    } 
+
+    pub fn bundle_item_has_some(&self) -> bool {
+        self.remove_product.is_some() |
+        self.add_product.is_some() |
+        self.edit_product.is_some()
+    }
+}
 
 
 

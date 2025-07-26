@@ -8,6 +8,7 @@ use types::app_state::AppState;
 mod routes;
 mod queries;
 mod error;
+mod tests;
 
 
 static SECRET_KEY: LazyLock<String> = LazyLock::new(|| {

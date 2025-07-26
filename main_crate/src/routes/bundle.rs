@@ -13,9 +13,9 @@ pub mod employee {
 }
 
 pub mod admin {
-    use actix_web::{cookie::time::util, dev::ServiceResponse, get, post, web::{self, ServiceConfig}, HttpRequest, HttpResponse};
+    use actix_web::{cookie::time::util, dev::ServiceResponse, get, patch, post, web::{self, ServiceConfig}, HttpRequest, HttpResponse};
     use serde_json::json;
-    use types::{app_state::AppState, payload::{bundle::CreateBundle, QueryBounds}};
+    use types::{app_state::AppState, payload::{bundle::{CreateBundle, EditBundle}, QueryBounds}};
 
     use crate::{queries::{self, bundle::insert_one_bundle}, routes::{util::get_claim_id, ServiceResult}};
 
@@ -52,11 +52,24 @@ pub mod admin {
         })))
     }
 
-    #[post("/edit/{bundle_id}")]
+    #[patch("/edit/{bundle_id}")]
     async fn edit_bundle(
-        id: web::Path<i64>
+        id: web::Path<i32>,
+        patch: web::Json<EditBundle>,
+        app: web::Data<AppState>
     ) -> ServiceResult {
-        Ok(HttpResponse::NotImplemented().body(""))
+
+        queries::bundle::patch_bundle(
+            id.into_inner(), 
+            patch.into_inner(), 
+            &app.db
+        ).await?;
+
+        Ok(HttpResponse::NotImplemented().json(json!({
+            "success": {
+                "message": "successfully edited bundle!"
+            }
+        })))
     }
 
     #[get("/list")]

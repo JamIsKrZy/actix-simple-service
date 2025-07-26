@@ -1,0 +1,59 @@
+{
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Login Endpoint"
+                ],
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Credentials to log in to your account",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginUserDto"
+                            },
+                            "example": {
+                                "email": "johndoe@example.com",
+                                "password": "password123"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserListResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,493 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "complete-restful-api-in-rust",
+        "description": "",
+        "license": {
+            "name": ""
+        },
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Login Endpoint"
+                ],
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Credentials to log in to your account",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginUserDto"
+                            },
+                            "example": {
+                                "email": "johndoe@example.com",
+                                "password": "password123"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserLoginResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Logout Endpoint"
+                ],
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Logout successfull"
+                    },
+                    "400": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorize Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Register Account Endpoint"
+                ],
+                "operationId": "register",
+                "requestBody": {
+                    "description": "Credentials to create account",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterUserDto"
+                            },
+                            "example": {
+                                "email": "johndoe@example.com",
+                                "name": "John Doe",
+                                "password": "password123",
+                                "passwordConfirm": "password123"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Account created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "User with email already exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/healthchecker": {
+            "get": {
+                "tags": [
+                    "Health Checker Endpoint"
+                ],
+                "operationId": "health_checker_handler",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Get All Users Endpoint"
+                ],
+                "operationId": "get_users",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true,
+                            "minimum": 0
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All Users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission Denied Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/users/me": {
+            "get": {
+                "tags": [
+                    "Get Authenticated User Endpoint"
+                ],
+                "operationId": "get_me",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "FilterUserDto": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "email",
+                    "role",
+                    "photo",
+                    "verified",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "photo": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "verified": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "LoginUserDto": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RegisterUserDto": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "passwordConfirm"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "passwordConfirm": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Response": {
+                "type": "object",
+                "required": [
+                    "status",
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserData": {
+                "type": "object",
+                "required": [
+                    "user"
+                ],
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/FilterUserDto"
+                    }
+                }
+            },
+            "UserListResponseDto": {
+                "type": "object",
+                "required": [
+                    "status",
+                    "users",
+                    "results"
+                ],
+                "properties": {
+                    "results": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "users": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/FilterUserDto"
+                        }
+                    }
+                }
+            },
+            "UserLoginResponseDto": {
+                "type": "object",
+                "required": [
+                    "status",
+                    "token"
+                ],
+                "properties": {
+                    "status": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserResponseDto": {
+                "type": "object",
+                "required": [
+                    "status",
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/UserData"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "token": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Rust REST API",
+            "description": "Authentication in Rust Endpoints"
+        }
+    ]
+}

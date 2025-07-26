@@ -1,0 +1,169 @@
+{
+    "schemas": {
+        "FilterUserDto": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "email",
+                "role",
+                "photo",
+                "verified",
+                "createdAt",
+                "updatedAt"
+            ],
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "verified": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "LoginUserDto": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "RegisterUserDto": {
+            "type": "object",
+            "required": [
+                "name",
+                "email",
+                "password",
+                "passwordConfirm"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "passwordConfirm": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response": {
+            "type": "object",
+            "required": [
+                "status",
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserData": {
+            "type": "object",
+            "required": [
+                "user"
+            ],
+            "properties": {
+                "user": {
+                    "$ref": "#/components/schemas/FilterUserDto"
+                }
+            }
+        },
+        "UserListResponseDto": {
+            "type": "object",
+            "required": [
+                "status",
+                "users",
+                "results"
+            ],
+            "properties": {
+                "results": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "status": {
+                    "type": "string"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/components/schemas/FilterUserDto"
+                    }
+                }
+            }
+        },
+        "UserLoginResponseDto": {
+            "type": "object",
+            "required": [
+                "status",
+                "token"
+            ],
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserResponseDto": {
+            "type": "object",
+            "required": [
+                "status",
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "$ref": "#/components/schemas/UserData"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securitySchemes": {
+        "token": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    }
+}

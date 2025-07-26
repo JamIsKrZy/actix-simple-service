@@ -9,4 +9,10 @@ runnable = false
 
 [output.html]
 additional-css = ["custom.css"]
+additional-js = ["script.js"]
 default-theme = "ayu"
+copyable = true
+
+[preprocessor.copy-assets]
+command = "bash"
+args = ["-c", "cp -r data/sample.json book/data"]
